@@ -17,20 +17,29 @@ const statConfig = [
 export function VaultStats() {
   const { address } = useAccount();
 
-  const { data, isLoading } = useReadContracts({
+  // Public reads — always fetch (no wallet needed)
+  const { data: publicData, isLoading: isPublicLoading } = useReadContracts({
     contracts: [
       { address: USDE_ADDRESS, abi: erc20Abi, functionName: "balanceOf", args: [VAULT_ADDRESS] },
       { address: ACCOUNTANT_ADDRESS, abi: accountantAbi, functionName: "getRate" },
+    ],
+    query: { refetchInterval: 15_000 },
+  });
+
+  // User-specific reads — only when connected
+  const { data: userData, isLoading: isUserLoading } = useReadContracts({
+    contracts: [
       { address: VAULT_ADDRESS, abi: erc20Abi, functionName: "balanceOf", args: [address!] },
       { address: USDE_ADDRESS, abi: erc20Abi, functionName: "balanceOf", args: [address!] },
     ],
     query: { enabled: !!address, refetchInterval: 15_000 },
   });
 
-  const tvl = data?.[0]?.result as bigint | undefined;
-  const rate = data?.[1]?.result as bigint | undefined;
-  const shares = data?.[2]?.result as bigint | undefined;
-  const usdeBalance = data?.[3]?.result as bigint | undefined;
+  const tvl = publicData?.[0]?.result as bigint | undefined;
+  const rate = publicData?.[1]?.result as bigint | undefined;
+  const shares = userData?.[0]?.result as bigint | undefined;
+  const usdeBalance = userData?.[1]?.result as bigint | undefined;
+  const isLoading = isPublicLoading || isUserLoading;
 
   const values = [
     tvl !== undefined ? `$${formatNumber(tvl)}` : "—",
