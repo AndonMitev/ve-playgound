@@ -130,6 +130,19 @@ VaultIntegrationTest
   [PASS] test_tellerDirectWithdraw_reverts
 ```
 
+## Deployed Addresses (Ethereum Mainnet)
+
+| Contract | Address |
+|---|---|
+| BoringVault (cUSDe) | [`0x324dcd943a79Ff3497845479980F6bC936B8116E`](https://etherscan.io/address/0x324dcd943a79Ff3497845479980F6bC936B8116E) |
+| Teller | [`0x9a1f42B252cc0a7fEDD06010c3EA35ce24A4E779`](https://etherscan.io/address/0x9a1f42B252cc0a7fEDD06010c3EA35ce24A4E779) |
+| Accountant | [`0x04D4E50cDC047b7E36460a813075D075AF59683d`](https://etherscan.io/address/0x04D4E50cDC047b7E36460a813075D075AF59683d) |
+| UnrestrictedManager | [`0xbD0a20299113B29d52Fb3503ad5b3f537b896Fb3`](https://etherscan.io/address/0xbD0a20299113B29d52Fb3503ad5b3f537b896Fb3) |
+| WithdrawQueue | [`0x659c35aF4b862A93D9C1D61B4bAa6595f357dE70`](https://etherscan.io/address/0x659c35aF4b862A93D9C1D61B4bAa6595f357dE70) |
+| RolesAuthority | [`0xcb0a393f175b555824Ff93586351B97E5Ab9471b`](https://etherscan.io/address/0xcb0a393f175b555824Ff93586351B97E5Ab9471b) |
+
+Base asset: [USDe (`0x4c9EDD5852cd905f086C759E8383e09bff1E68B3`)](https://etherscan.io/address/0x4c9EDD5852cd905f086C759E8383e09bff1E68B3)
+
 ## How to Verify
 
 ```bash
