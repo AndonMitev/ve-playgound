@@ -1,0 +1,18 @@
+VaultIntegration
+├── deposit
+│   ├── when user deposits USDe
+│   │   └── it should mint correct shares and vault should hold USDe
+│   └── fuzz: variable deposit amounts
+│       └── it should always mint 1:1 shares at starting rate
+├── withdrawal queue
+│   ├── when user requests withdrawal
+│   │   └── it should transfer shares from user to queue
+│   ├── when solver solves after 3-day maturity
+│   │   └── it should send USDe to user and clear queue
+│   ├── when solver solves before maturity
+│   │   └── it should revert WithdrawQueue__NotMatured
+│   └── when user cancels withdrawal
+│       └── it should return shares to user
+└── teller direct withdraw
+    └── when unauthorized user calls bulkWithdraw
+        └── it should revert with UNAUTHORIZED

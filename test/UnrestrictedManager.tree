@@ -1,0 +1,24 @@
+UnrestrictedManager
+├── constructor
+│   ├── given _vault is address(0)
+│   │   └── it should revert with UnrestrictedManager__ZeroAddress
+│   └── given valid params
+│       └── it should set vault, authority, and owner
+├── manageVault (single)
+│   ├── when caller is authorized
+│   │   └── it should forward to vault.manage and return result
+│   └── when caller is unauthorized
+│       └── it should revert with UNAUTHORIZED
+├── manageVault (batch)
+│   ├── when caller is authorized
+│   │   └── it should forward all calls and return results
+│   └── when caller is unauthorized
+│       └── it should revert with UNAUTHORIZED
+├── role management
+│   ├── when owner adds a manager
+│   │   └── new manager should be able to call manageVault
+│   └── when owner removes a manager
+│       └── removed manager should revert with UNAUTHORIZED
+└── fuzz
+    └── given arbitrary calldata
+        └── it should forward correctly and return expected result

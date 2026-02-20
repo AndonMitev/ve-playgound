@@ -1,0 +1,43 @@
+WithdrawQueue
+├── constructor
+│   ├── given any address is zero
+│   │   └── it should revert WithdrawQueue__ZeroAddress
+│   └── given valid params
+│       └── it should set VAULT, TELLER, ACCOUNTANT, ASSET, ONE_SHARE
+├── requestWithdraw
+│   ├── given zero shares
+│   │   └── it should revert WithdrawQueue__ZeroShares
+│   ├── given below minimum shares
+│   │   └── it should revert WithdrawQueue__BelowMinimumShares
+│   └── given valid amount
+│       └── it should transfer shares to queue, store request, emit WithdrawRequested
+├── cancelWithdraw
+│   ├── given nonexistent request
+│   │   └── it should revert WithdrawQueue__RequestNotFound
+│   ├── given caller is not request owner
+│   │   └── it should revert WithdrawQueue__NotRequestOwner
+│   ├── given request already completed
+│   │   └── it should revert WithdrawQueue__AlreadyCompleted
+│   └── given valid cancel
+│       └── it should return shares to user, mark completed, emit WithdrawCancelled
+├── solveWithdraw
+│   ├── given caller is unauthorized
+│   │   └── it should revert UNAUTHORIZED
+│   ├── given request not matured
+│   │   └── it should revert WithdrawQueue__NotMatured
+│   ├── given request already completed
+│   │   └── it should revert WithdrawQueue__AlreadyCompleted
+│   ├── given single matured request
+│   │   └── it should bulkWithdraw, send assets to user, emit WithdrawSolved
+│   └── given batch of matured requests
+│       └── it should aggregate shares, distribute pro-rata, emit events
+├── getRequest
+│   └── it should return the stored request struct
+├── isMatured
+│   ├── given request exists and matured
+│   │   └── it should return true
+│   └── given request not matured or nonexistent
+│       └── it should return false
+└── fuzz
+    ├── arbitrary amounts → request + cancel returns exact shares
+    └── arbitrary time → solve only succeeds after MATURITY_PERIOD
